@@ -46,7 +46,7 @@ public class AuthPanel implements IPanel {
 	
 	
 	private void login() {
-		authController.login();
+		authController.loginClick(loginUsername.getText(), loginPasswordField.getText());
 	}
 
 	

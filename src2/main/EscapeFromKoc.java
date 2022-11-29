@@ -2,6 +2,8 @@ package main;
 
 import java.awt.EventQueue;
 
+import Utilities.DBManager.DBManager;
+import Utilities.DBManager.DatabaseAdapter;
 import factory.PanelType;
 import factory.ViewFactory;
 import factory.ViewType;
@@ -10,6 +12,7 @@ import factory.ViewType;
 public class EscapeFromKoc {
 	
 	private static EscapeFromKoc instance;
+	private DatabaseAdapter databaseAdapter;
 	
 	private IAppView authView;
 	private IAppView gameView;
@@ -44,9 +47,10 @@ public class EscapeFromKoc {
 	
 	
 	private void startApp() {
+		databaseAdapter = new DatabaseAdapter(DBManager.getInstance());
+		databaseAdapter.connect();
 		authView = ViewFactory.getInstance().createView(ViewType.AuthView);
 		gameView = ViewFactory.getInstance().createView(ViewType.GameView);
-		
 		authView.showView(true);
 		authView.getPanel(PanelType.Auth).showPanel(true);
 		setCurPanel(authView.getPanel(PanelType.Auth));
@@ -131,5 +135,8 @@ public class EscapeFromKoc {
 	public void setGameView(IAppView gameView) {
 		this.gameView = gameView;
 	}
-	
+
+	public DatabaseAdapter getDatabaseAdapter() {
+		return databaseAdapter;
+	}
 }
